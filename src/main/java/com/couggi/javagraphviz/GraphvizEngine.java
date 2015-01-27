@@ -38,25 +38,6 @@ public class GraphvizEngine {
     }
 
 
-    public void setType(Map<String, OutputType> type) {
-        this.type = type;
-    }
-
-    public void setLayoutManager(String layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
-    public void setDirectoryPathExecute(String directoryPathExecute) {
-        this.directoryPathExecute = directoryPathExecute;
-    }
-
-    public GraphvizEngine(Map<String, OutputType> type, Graph graph, String layoutManager, String directoryPathExecute) {
-        this.type = type;
-        this.graph = graph;
-        this.layoutManager = layoutManager;
-        this.directoryPathExecute = directoryPathExecute;
-    }
-
     public static GraphVizRenderingResult output(File inputDotFile, String pathToDotExecutable, OutputType[] outTypes, String workingDir) {
 
         List<File> fls = new ArrayList<File>();
@@ -69,33 +50,25 @@ public class GraphvizEngine {
                         .append(" -o")
                         .append(type.filePath());
 
-                fls
-                        .add(new File(type.filePath()));
+                fls.add(new File(type.filePath()));
             }
 
             String dotCommand = pathToDotExecutable + outputTypes + " " + inputDotFile.getPath();
             Process process = Runtime.getRuntime().exec(dotCommand, null, new File(workingDir));
 
-            @SuppressWarnings("unused")
             int exitVal = process.waitFor();
 
 
-            return  new GraphVizRenderingResult(exitVal, fls);
+            return new GraphVizRenderingResult(exitVal, fls);
 
 
-        } catch (IOException e) {
-
-            if (LOGGER.isLoggable(Level.SEVERE)) {
-                LOGGER.log(Level.SEVERE, "command error", e);
-            }
-            throw new GraphvizOutputException(e.getMessage(), e);
-
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
 
             if (LOGGER.isLoggable(Level.SEVERE)) {
                 LOGGER.log(Level.SEVERE, "command error", e);
             }
             throw new GraphvizOutputException(e.getMessage(), e);
+
         }
     }
 
