@@ -1,12 +1,5 @@
 package com.couggi.javagraphviz;
 
-import com.couggi.javagraphviz.Digraph;
-import com.couggi.javagraphviz.Edge;
-import com.couggi.javagraphviz.Graph;
-import com.couggi.javagraphviz.GraphvizEngine;
-import com.couggi.javagraphviz.Node;
-
-
 public class HelloWorldSample {
 
 	public static void main(String[] args) {
@@ -28,7 +21,7 @@ public class HelloWorldSample {
 		label.attr("arrowhead").value("none");
 		label.attr("labeldistance").value("1.0");
 		label.attr("labelangle").value("-60.0");
-		// create a edge with hello node and world node.
+        // create a edge with hello node and world node.
 		// create the Graphviz engine to the graph
 		GraphvizEngine engine = new GraphvizEngine(graph);
 		// define the type of the output 

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class GraphvizEngine {
 
-	private static final Logger log = Logger.getLogger(GraphvizEngine.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GraphvizEngine.class.getName());
 	
 	private Map<String,OutputType> type;
 	private Graph graph;
@@ -38,7 +38,6 @@ public class GraphvizEngine {
 		this.graph = graph;
 		this.type = new HashMap<String,OutputType>();
 		this.type.put("png",new OutputType("png"));
-		this.type.put("svg",new OutputType("svg"));
 		this.layoutManager = "dot";
 	}
 
@@ -73,15 +72,15 @@ public class GraphvizEngine {
 	      
 		} catch (IOException e) {
 			
-			if (log.isLoggable(Level.SEVERE)) {
-				log.log(Level.SEVERE,"command error",e);
+			if (LOGGER.isLoggable(Level.SEVERE)) {
+				LOGGER.log(Level.SEVERE,"command error",e);
 			}
 			throw new GraphvizOutputException(e.getMessage(),e);
 			
 		} catch (InterruptedException e) {
 			
-			if (log.isLoggable(Level.SEVERE)) {
-				log.log(Level.SEVERE,"command error",e);
+			if (LOGGER.isLoggable(Level.SEVERE)) {
+				LOGGER.log(Level.SEVERE,"command error",e);
 			}
 			throw new GraphvizOutputException(e.getMessage(),e);
 		}
