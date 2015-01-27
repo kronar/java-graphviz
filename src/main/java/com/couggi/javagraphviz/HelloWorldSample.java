@@ -1,4 +1,4 @@
-package helloworld;
+package com.couggi.javagraphviz;
 
 import com.couggi.javagraphviz.Digraph;
 import com.couggi.javagraphviz.Edge;
@@ -32,7 +32,7 @@ public class HelloWorldSample {
 		// create the Graphviz engine to the graph
 		GraphvizEngine engine = new GraphvizEngine(graph);
 		// define the type of the output 
-		engine.type("png");
+		engine.addType("png");
 		// define the file name of the output.
 		engine.toFilePath("helloworld.png");
 		// generate output.

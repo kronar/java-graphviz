@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class GraphvizEngine {
 
-	private static final Logger log = Logger.getLogger("net.javagraphviz.GraphvizEngine");
+	private static final Logger log = Logger.getLogger(GraphvizEngine.class.getName());
 	
 	private Map<String,OutputType> type;
 	private Graph graph;
@@ -38,6 +38,7 @@ public class GraphvizEngine {
 		this.graph = graph;
 		this.type = new HashMap<String,OutputType>();
 		this.type.put("png",new OutputType("png"));
+		this.type.put("svg",new OutputType("svg"));
 		this.layoutManager = "dot";
 	}
 
@@ -66,7 +67,7 @@ public class GraphvizEngine {
 			Process process = Runtime.getRuntime().exec(dotCommand,null,new File(directoryPathExecute));
 			
 			@SuppressWarnings("unused")
-			int exitVal = process.waitFor();
+            int exitVal = process.waitFor();
 			
 			
 	      
@@ -130,7 +131,7 @@ public class GraphvizEngine {
 	/**
 	 * define where the dot command will be executed.
 	 * 
-	 * @param dir
+	 * @param path
 	 * @return
 	 */
 	public GraphvizEngine fromDirectoryPath(String path) {
@@ -178,10 +179,6 @@ public class GraphvizEngine {
 	 * @param filePath
 	 */
 	public GraphvizEngine toFilePath(String filePath) {
-		if (this.type.size() > 1) { 
-			throw new IllegalStateException("there was more of a type defined.");
-		}
-		
 		this.type.values().iterator().next().toFilePath(filePath);
 		
 		return this;
