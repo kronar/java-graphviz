@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 public class GraphvizEngine {
 
     private static final Logger LOGGER = Logger.getLogger(GraphvizEngine.class.getName());
+    private static final String DOT = "dot";
+    private static final String DEFAULT_WORKING_DIR = ".";
 
     private Map<String, OutputType> type;
     private Graph graph;
@@ -25,7 +27,7 @@ public class GraphvizEngine {
     /**
      * directory path where the dot command will be executed.
      */
-    private String directoryPathExecute = ".";
+    private String directoryPathExecute = DEFAULT_WORKING_DIR;
 
     /**
      * create the engine. type defualt = xdot.
@@ -34,9 +36,13 @@ public class GraphvizEngine {
         this.graph = graph;
         this.type = new HashMap<String, OutputType>();
         this.type.put("png", new OutputType("png"));
-        this.layoutManager = "dot";
+        this.layoutManager = DOT;
     }
 
+
+    public static GraphVizRenderingResult render(File inputDotFile, OutputType[] outputTypes) {
+        return output(inputDotFile, findExecutable(DOT), outputTypes, DEFAULT_WORKING_DIR);
+    }
 
     public static GraphVizRenderingResult output(File inputDotFile, String pathToDotExecutable, OutputType[] outTypes, String workingDir) {
 
@@ -85,7 +91,7 @@ public class GraphvizEngine {
     }
 
 
-    private String findExecutable(String prog) {
+    private static String findExecutable(String prog) {
 
         String[] paths = System.getenv().get("PATH").split(File.pathSeparator);
         for (String path : paths) {
@@ -103,7 +109,7 @@ public class GraphvizEngine {
      * @param dotContent
      * @return
      */
-    private File createDotFileTemp(String suffix, String dotContent) {
+    private static File createDotFileTemp(String suffix, String dotContent) {
         try {
             File temp = File.createTempFile("graph", suffix);
             if (dotContent != null) {
