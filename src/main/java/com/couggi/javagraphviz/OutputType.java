@@ -11,7 +11,7 @@ public class OutputType {
 	private String name;
 	private String filePath;
 	
-	OutputType(String name) { 
+	public OutputType(String name) {
 		this.name = name;
 		this.filePath = "default." + name;
 	}
